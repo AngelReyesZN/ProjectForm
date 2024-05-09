@@ -1,41 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario CRUD</title>
-</head>
+<html>
 <body>
-    <h2>Crear Nuevo Registro</h2>
-    <form id="formData">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-        <br>
-        <label for="edad">Edad:</label>
-        <input type="number" id="edad" name="edad" required>
-        <br>
-        <button type="submit" onclick="submitForm()">Guardar</button>
-    </form>
 
-    <script>
-        function submitForm() {
-            const formData = new FormData(document.getElementById('formData'));
-            fetch('/api/saveData', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert('Datos guardados exitosamente');
-                } else {
-                    alert('Error al guardar datos');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Ocurrió un error inesperado');
-            });
-        }
-    </script>
+<h2>Formulario de Registro</h2>
+
+<form action="URL_DE_TU_FUNCTION_APP" method="post">
+  Nombre:<br>
+  <input type="text" name="nombre">
+  <br>
+  Edad:<br>
+  <input type="text" name="edad">
+  <br><br>
+  <input type="submit" value="Registrar">
+</form>
+
+<script>
+  // Aquí puedes agregar JavaScript para manejar la solicitud del formulario si es necesario
+</script>
+
 </body>
 </html>
