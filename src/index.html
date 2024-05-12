@@ -38,6 +38,10 @@
             const nombre = document.getElementById('nombre').value;
             const expediente = document.getElementById('exp').value;
             const email = document.getElementById('mail').value;
+
+            const nombre = nombreInput.value;
+            const expediente = expedienteInput.value;
+            const mail = mailInput.value;
     
             const apiUrl = 'https://mydef.azurewebsites.net/api/sendData';
     
@@ -51,6 +55,10 @@
             .then(response => {
                 if (response.ok) {
                     mostrarMensaje('Datos guardados correctamente', 'success');
+                    // Borrar el contenido de los campos de entrada después de guardar los datos
+                        nombreInput.value = '';
+                        expedienteInput.value = '';
+                        mailInput.value = '';
                 } else {
                     mostrarMensaje('Error al guardar datos', 'error');
                 }
