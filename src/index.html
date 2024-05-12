@@ -3,47 +3,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario CRUD</title>
+    <link rel="shortcut icon" href="img/azure.png">	
+    <link rel="stylesheet" href="styles.css">
+
+
 </head>
 <body>
-    <h2>Crear Nuevo Registro</h2>
-    <form id="formData">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-        <br>
-        <label for="edad">Edad:</label>
-        <input type="number" id="edad" name="edad" required>
-        <br>
-        <button type="button" onclick="guardarDatos()">Guardar</button>
-    </form>
+    <div class="contenedor">
+        <img class="bg" src="img\bg.jpg" alt="">
+        <div class="formulario">
+            <h2>Formulario</h2>
+            <p>Ingresar los datos a insertar en la base de datos</p>
+            <form id="formData">
+                <p class = "none">Ingresar los datos a insertar en la base de datos</p>
+                <label for="nombre" class="nombre">Nombre<span>*</span></label>
+                <br>
+                <input type="text" id="nombre" name="nombre" class="campos" placeholder="Nombre"  required>
+                <br><br>
+                <label for="exp">Expediente<span>*</span></label>
+                <br>
+                <input type="number" id="exp" name="exp" class="campos" placeholder="Expediente" required>
+                <br><br>
+                <label for="mail">Email<span>*</span></label>
+                <br>
+                <input type="text" id="mail" name="mail" class="campos" placeholder="Email" required>
+                <br><br>
+                <button type="button" class="boton" onclick="guardarDatos()">Guardar</button>
+            </form>
+        </div>
+    </div>
 
     <script>
         function guardarDatos() {
-    const nombre = document.getElementById('nombre').value;
-    const edad = document.getElementById('edad').value;
-
-    const apiUrl = 'https://mydef.azurewebsites.net/api/sendData?';
-
-    fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ nombre, edad })
-    })
-    .then(response => {
-        if (response.ok) {
-            alert('Datos guardados correctamente');
-        } else {
-            alert('Error al guardar datos');
+            const nombre = document.getElementById('nombre').value;
+            const expediente = document.getElementById('exp').value;
+            const mail = document.getElementById('mail').value;
+    
+            const apiUrl = 'https://mydef.azurewebsites.net/api/sendData';
+    
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nombre, expediente, mail })
+            })
+            .then(response => {
+                if (response.ok) {
+                    mostrarMensaje('Datos guardados correctamente', 'success');
+                } else {
+                    mostrarMensaje('Error al guardar datos', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                mostrarMensaje('Ocurrió un error inesperado', 'error');
+            });
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Ocurrió un error inesperado');
-    });
-}
-
+    
+        function mostrarMensaje(mensaje, tipo) {
+            const mensajeDiv = document.createElement('div');
+            mensajeDiv.textContent = mensaje;
+            mensajeDiv.classList.add('mensaje', tipo);
+            document.body.appendChild(mensajeDiv);
+    
+            // Eliminar el mensaje después de unos segundos
+            setTimeout(() => {
+                mensajeDiv.remove();
+            }, 3000); // Eliminar después de 3 segundos (3000 milisegundos)
+        }
     </script>
+    
 </body>
 </html>
+
 
