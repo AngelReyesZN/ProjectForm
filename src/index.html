@@ -37,7 +37,7 @@
         function guardarDatos() {
             const nombre = document.getElementById('nombre').value;
             const expediente = document.getElementById('exp').value;
-            const mail = document.getElementById('mail').value;
+            const email = document.getElementById('mail').value;
     
             const apiUrl = 'https://mydef.azurewebsites.net/api/sendData';
     
@@ -46,7 +46,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ nombre, expediente, mail })
+                body: JSON.stringify({ nombre, expediente, email })
             })
             .then(response => {
                 if (response.ok) {
