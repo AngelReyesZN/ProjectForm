@@ -1,0 +1,130 @@
+/*===== GOOGLE FONTS =====*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+
+body {
+    background-color: #0072C6;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 14px;
+
+
+}
+.contenedor {
+    background-color: white;
+    align-items: center;
+    text-align: center;
+    width: 70%;
+    height: 80%;
+    border-radius: 30px;
+    display: flex;
+}
+
+.bg{
+    height: 100%;
+    width: 50%;
+    padding: 0;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+
+}
+
+.campos {
+    border: 2px solid #EBEBEB; /* Borde de color azul */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado al borde */
+    font-size: 14px; /* Tamaño de la fuente del texto ingresado */
+    margin-bottom: 20px;
+    background-color: #F8F8F8;
+    width: 100%;
+
+  }
+  
+  .campos::placeholder {
+    color: #CCCCCC; /* Color gris para el placeholder */
+  }
+  
+
+  .formulario {
+    display: flex;
+    flex-direction: column; /* Alinear elementos en columna */
+    align-items: center; /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    padding: 10px; /* Agregar espaciado interior */
+    text-align: center; /* Alinear texto al centro */
+    width: 100%; /* Ancho del formulario */
+}
+
+
+.boton {
+    background-color: #0072C6;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transición suave de 0.3 segundos */
+}
+
+.boton:hover {
+    background-color: #005088; /* Color de fondo más oscuro al pasar el cursor */
+}
+
+
+.nombre {
+    text-align: left;
+}
+
+h2 {
+    padding: 0px;
+    margin: 0;
+}
+
+p {
+    padding-top: 2px;
+    padding-bottom: 30px;
+}
+
+.formulario label {
+    text-align: left; /* Alinear texto de las etiquetas a la izquierda */
+    display: block; /* Mostrar cada etiqueta en una línea separada */
+    font-weight: bold; /* Aplicar negrita al texto de las etiquetas */
+}
+
+.none {
+    visibility: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+.formulario span{
+    color: #0072C6;
+}
+
+
+.mensaje {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    opacity: 0.9;
+    z-index: 1000;
+}
+
+.success {
+        background-color: #0072C6; /* Color azul */
+}
+
+.error {
+        background-color: #FF6347; /* Color rojo */
+}
