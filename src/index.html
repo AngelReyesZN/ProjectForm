@@ -35,13 +35,13 @@
 
     <script>
         function guardarDatos() {
-            const nombre = document.getElementById('nombre').value;
-            const expediente = document.getElementById('exp').value;
-            const email = document.getElementById('mail').value;
+            const nombreInput = document.getElementById('nombre');
+            const expedienteInput = document.getElementById('exp');
+            const emailInput = document.getElementById('mail');
 
             const nombre = nombreInput.value;
             const expediente = expedienteInput.value;
-            const mail = mailInput.value;
+            const email = emailInput.value;
     
             const apiUrl = 'https://mydef.azurewebsites.net/api/sendData';
     
