@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <script>
+   <script>
           function guardarDatos(action) {
             const nombreInput = document.getElementById('nombre');
             const expedienteInput = document.getElementById('exp');
@@ -64,28 +64,21 @@
                     expedienteInput.value = '';
                      emailInput.value = '';
                 } else if (action === 'read') {
-    fetch(apiUrl, {
-        method: 'GET',  // Cambiar a solicitud GET
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json(); // Convertir la respuesta a JSON
-        } else {
-            throw new Error('Error al realizar la solicitud de lectura');
-        }
-    })
-    .then(data => {
-        console.log(data); // Procesar los datos leídos aquí
-        // Puedes realizar otras operaciones con los datos, como mostrarlos en tu página web
-    })
-    .catch(error => {
-        console.error('Error al leer los datos:', error.message);
-        mostrarMensaje('Ocurrió un error al leer los datos', 'error');
-    });
-
+                // Procesar la respuesta JSON solo si la respuesta no está vacía
+                response.text().then(text => {
+                    if (text) {
+                        try {
+                            const data = JSON.parse(text);
+                            console.log(data); // Manejar los datos leídos aquí
+                        } catch (error) {
+                            console.error('Error al analizar JSON:', error);
+                            mostrarMensaje('Error al procesar los datos', 'error');
+                        }
+                    } else {
+                        console.log('No hay datos disponibles');
+                        // Aquí puedes mostrar un mensaje de que no hay datos disponibles
+                    }
+                });
                 }
  else if (action === 'update') {
                     mostrarMensaje('Datos actualizados correctamente', 'success');
