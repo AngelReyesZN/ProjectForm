@@ -64,10 +64,17 @@
                     expedienteInput.value = '';
                      emailInput.value = '';
                 } else if (action === 'read') {
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch((error) => {
-        console.error('Error:', error);
+    response.json().then(data => {
+        if (data && data.length > 0) {
+            console.log(data); // Manejar los datos leídos aquí
+            // Aquí puedes actualizar la interfaz de usuario con los datos recibidos
+        } else {
+            console.log('No hay datos disponibles');
+            mostrarMensaje('No hay datos disponibles', 'info');
+        }
+    }).catch(error => {
+        console.error('Error al analizar JSON:', error);
+        mostrarMensaje('Error al procesar los datos', 'error');
     });
 }
  else if (action === 'update') {
