@@ -1,115 +1,27 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario CRUD</title>
-    <link rel="shortcut icon" href="img/azure.png">	
-    <link rel="stylesheet" href="styles.css">
-
-
+    <title>Consulta API Azure</title>
 </head>
 <body>
-    <div class="contenedor">
-        <img class="bg" src="img\bg.jpg" alt="">
-        <div class="formulario">
-            <h2>Formulario</h2>
-            <p>Ingresar los datos a insertar en la base de datos.</p>
-            <form id="formData">
-                <p class = "none">Ingresar los datos a insertar en la base de datos.</p>
-                <label for="nombre" class="nombre">Nombre<span>*</span></label>
-                <br>
-                <input type="text" id="nombre" name="nombre" class="campos" placeholder="Nombre"  required>
-                <br>
-                <label for="exp">Expediente<span>*</span></label>
-                <br>
-                <input type="number" id="exp" name="exp" class="campos" placeholder="Expediente" required>
-                <br>
-                <label for="mail">Email<span>*</span></label>
-                <br>
-                <input type="text" id="mail" name="mail" class="campos" placeholder="Email" required>
-                <br>
-                <button type="button" class="boton" onclick="guardarDatos('create')">Guardar</button>
-                <button type="button" class="boton" onclick="guardarDatos('read')">Leer</button>
-                <button type="button" class="boton" onclick="guardarDatos('update')">Actualizar</button>
-                <button type="button" class="boton" onclick="guardarDatos('delete')">Eliminar</button>
-            </form>
-        </div>
-    </div>
+    <button id="getDataButton">Obtener Datos</button>
 
-   <script>
-          function guardarDatos(action) {
-            const nombreInput = document.getElementById('nombre');
-            const expedienteInput = document.getElementById('exp');
-            const emailInput = document.getElementById('mail');
+    <script>
+        document.getElementById('getDataButton').addEventListener('click', async () => {
+            const response = await fetch('https://mydef.azurewebsites.net/api/sendData', {
+                method: 'POST'
+            });
 
-            const nombre = nombreInput.value;
-            const expediente = expedienteInput.value;
-            const email = emailInput.value;
-    
-        const apiUrl = 'https://mydef.azurewebsites.net/api/sendData';
-
-        fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ action, nombre, expediente, email })
-        })
-        .then(response => {
             if (response.ok) {
-                // Manejo de respuestas según la acción realizada
-                if (action === 'create') {
-                    mostrarMensaje('Datos guardados correctamente', 'success');
-                    nombreInput.value = '';
-                    expedienteInput.value = '';
-                     emailInput.value = '';
-                } else if (action === 'read') {
-    response.json().then(data => {
-        if (data && data.length > 0) {
-            console.log(data); // Manejar los datos leídos aquí
-            // Aquí puedes actualizar la interfaz de usuario con los datos recibidos
-        } else {
-            console.log('No hay datos disponibles');
-            mostrarMensaje('No hay datos disponibles', 'info');
-        }
-    }).catch(error => {
-        console.error('Error al analizar JSON:', error);
-        mostrarMensaje('Error al procesar los datos', 'error');
-    });
-}
- else if (action === 'update') {
-                    mostrarMensaje('Datos actualizados correctamente', 'success');
-                    nombreInput.value = '';
-                    expedienteInput.value = '';
-                    emailInput.value = '';
-                } else if (action === 'delete') {
-                    mostrarMensaje('Registro eliminado correctamente', 'success');
-                    nombreInput.value = '';
-                    expedienteInput.value = '';
-                    emailInput.value = '';
-                }
+                const data = await response.json();
+                console.log(data); // Aquí puedes manejar los datos recibidos
             } else {
-                mostrarMensaje('Error al realizar la acción', 'error');
+                console.error('Error al obtener datos:', response.statusText);
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            mostrarMensaje('Ocurrió un error inesperado', 'error');
         });
-    }
-        function mostrarMensaje(mensaje, tipo) {
-            const mensajeDiv = document.createElement('div');
-            mensajeDiv.textContent = mensaje;
-            mensajeDiv.classList.add('mensaje', tipo);
-            document.body.appendChild(mensajeDiv);
-    
-            // Eliminar el mensaje después de unos segundos
-            setTimeout(() => {
-                mensajeDiv.remove();
-            }, 3000); // Eliminar después de 3 segundos (3000 milisegundos)
-        }
     </script>
-    
 </body>
 </html>
 
