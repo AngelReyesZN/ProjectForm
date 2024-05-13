@@ -3,7 +3,7 @@
 
 
 body {
-    background-color: #0072C6;
+    background: linear-gradient(to bottom right, #0072C6, #003760); /* Define el gradiente diagonal */
     align-items: center;
     text-align: center;
     justify-content: center;
