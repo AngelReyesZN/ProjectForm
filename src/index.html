@@ -19,22 +19,25 @@
                 <label for="nombre" class="nombre">Nombre<span>*</span></label>
                 <br>
                 <input type="text" id="nombre" name="nombre" class="campos" placeholder="Nombre"  required>
-                <br><br>
+                <br>
                 <label for="exp">Expediente<span>*</span></label>
                 <br>
                 <input type="number" id="exp" name="exp" class="campos" placeholder="Expediente" required>
-                <br><br>
+                <br>
                 <label for="mail">Email<span>*</span></label>
                 <br>
                 <input type="text" id="mail" name="mail" class="campos" placeholder="Email" required>
-                <br><br>
-                <button type="button" class="boton" onclick="guardarDatos()">Guardar</button>
+                <br>
+                <button type="button" class="boton" onclick="guardarDatos('create')">Guardar</button>
+                <button type="button" class="boton" onclick="guardarDatos('read')">Leer</button>
+                <button type="button" class="boton" onclick="guardarDatos('update')">Actualizar</button>
+                <button type="button" class="boton" onclick="guardarDatos('delete')">Eliminar</button>
             </form>
         </div>
     </div>
 
     <script>
-        function guardarDatos() {
+          function guardarDatos(action) {
             const nombreInput = document.getElementById('nombre');
             const expedienteInput = document.getElementById('exp');
             const emailInput = document.getElementById('mail');
@@ -43,32 +46,48 @@
             const expediente = expedienteInput.value;
             const email = emailInput.value;
     
-            const apiUrl = 'https://mydef.azurewebsites.net/api/sendData';
-    
-            fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ nombre, expediente, email })
-            })
-            .then(response => {
-                if (response.ok) {
+        const apiUrl = 'https://mydef.azurewebsites.net/api/sendData';
+
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ action, nombre, expediente, email })
+        })
+        .then(response => {
+            if (response.ok) {
+                // Manejo de respuestas según la acción realizada
+                if (action === 'create') {
                     mostrarMensaje('Datos guardados correctamente', 'success');
-                    // Borrar el contenido de los campos de entrada después de guardar los datos
-                        nombreInput.value = '';
-                        expedienteInput.value = '';
-                        emailInput.value = '';
-                } else {
-                    mostrarMensaje('Error al guardar datos', 'error');
+                    nombreInput.value = '';
+                    expedienteInput.value = '';
+                     emailInput.value = '';
+                } else if (action === 'read') {
+                    // Procesar resultados de lectura
+                    response.json().then(data => {
+                        console.log(data); // Aquí puedes manejar los datos leídos
+                    });
+                } else if (action === 'update') {
+                    mostrarMensaje('Datos actualizados correctamente', 'success');
+                    nombreInput.value = '';
+                    expedienteInput.value = '';
+                    emailInput.value = '';
+                } else if (action === 'delete') {
+                    mostrarMensaje('Registro eliminado correctamente', 'success');
+                    nombreInput.value = '';
+                    expedienteInput.value = '';
+                    emailInput.value = '';
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                mostrarMensaje('Ocurrió un error inesperado', 'error');
-            });
-        }
-    
+            } else {
+                mostrarMensaje('Error al realizar la acción', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            mostrarMensaje('Ocurrió un error inesperado', 'error');
+        });
+    }
         function mostrarMensaje(mensaje, tipo) {
             const mensajeDiv = document.createElement('div');
             mensajeDiv.textContent = mensaje;
